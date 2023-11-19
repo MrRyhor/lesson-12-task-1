@@ -1,6 +1,5 @@
 <template>
-    <asignments-selector />
-    <button type="button" @click = "addAsignment">Add</button>
+    <asignments-selector />    
     <div class="asignments-list">
         <div v-if="asignmentsListToDisplay.length">
             <div v-for="asignment in asignmentsListToDisplay" :key="asignment.id" class="asignment">
@@ -27,11 +26,12 @@ export default {
     components: { AsignmentsSelector },
 
     computed: {
-        ...mapGetters('asignments', ['asignmentsListToDisplay']),
+        ...mapGetters('asignments', ['asignmentsListToDisplay']),        
     },
 
     methods: {
-        ...mapActions('asignments', ['removeAsignment', 'addAsignment']),
+        ...mapActions('asignments', ['removeAsignment']),
+       
     },
 }
 </script>
@@ -62,13 +62,5 @@ export default {
     & .add-button {
         margin-top: 20px;
     }
-}
-button {
-    margin-top: 10px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: rgb(54, 54, 54);
-    color: #fff;
 }
 </style>
