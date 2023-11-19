@@ -1,9 +1,12 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex'
+import teachers from './modules/teachers'
+import lessons from './modules/lessons'
+import asignments from './modules/asignments'
 
 export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+    modules: {
+        teachers,
+        lessons,
+        asignments,
+    },
+})
