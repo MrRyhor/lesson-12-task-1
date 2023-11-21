@@ -42,36 +42,36 @@ export default {
     },
     mutations: {
         addTeacher(state, teacherObj) {
-            addToList(subjects, { id: Date.now(), subject: teacherObj.subjectId })
-            state.teachersList.push({
-                id: Date.now(),
-                name: teacherObj.name,
-                subjectId: subjects.find((sub) => sub.subject === teacherObj.subjectId).id,
-            })
+            addToList(state.teachersList, teacherObj)
         },
         removeTeacher(state, teacherId) {
             state.teachersList = removeFromList(state.teachersList, teacherId)
         },
         updateTeacher(state, teacherObj) {
-            const newSubjects = subjects.find((obj) => obj.id === teacherObj.subId)
-            newSubjects.subject = teacherObj.subjectId
-            updateObjInList(state.teachersList, {
-                id: teacherObj.id,
-                name: teacherObj.name,
-                subjectId: teacherObj.subId,
-            })
+            updateObjInList(state.teachersList, teacherObj)
         },
     },
     actions: {
         addTeacher({ commit }, teacherObj) {
-            commit('addTeacher', teacherObj)
+            addToList(subjects, { id: Date.now(), subject: teacherObj.subjectId })
+            commit('addTeacher', {
+                id: Date.now(),
+                name: teacherObj.name,
+                subjectId: subjects.find((sub) => sub.subject === teacherObj.subjectId).id,
+            })
         },
         removeTeacher({ commit, dispatch }, teacherId) {
             commit('removeTeacher', teacherId)
             dispatch('asignments/deleteAsignmentbyTeacherId', teacherId, { root: true })
         },
         updateTeacher({ commit }, teacherObj) {
-            commit('updateTeacher', teacherObj)
+            const newSubjects = subjects.find((obj) => obj.id === teacherObj.subId)
+            newSubjects.subject = teacherObj.subjectId
+            commit('updateTeacher', {
+                id: teacherObj.id,
+                name: teacherObj.name,
+                subjectId: teacherObj.subId,
+            })
         },
     },
     modules: {},

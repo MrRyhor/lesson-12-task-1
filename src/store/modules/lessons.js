@@ -44,35 +44,35 @@ export default {
     },
     mutations: {
         addLesson(state, lesson) {
-            addToList(subjects, { id: Date.now(), subject: lesson.subjectId })
-            addToList(classesList, { id: Date.now(), classTitle: lesson.classId })
-            state.lessonsList.push({
-                id: Date.now(),
-                subjectId: subjects.find((sub) => sub.subject === lesson.subjectId).id,
-                classId: classesList.find((cls) => cls.classTitle === lesson.classId).id,
-            })
+            state.lessonsList.push(lesson)
         },
         removeLesson(state, lessonId) {
             state.lessonsList = removeFromList(state.lessonsList, lessonId)
         },
         updateLesson(state, lesson) {
-            const newSubjects = subjects.find((obj) => obj.id === lesson.subId)
-            newSubjects.subject = lesson.subjectId
-            const newClasses = classesList.find((obj) => obj.id === lesson.clsId)
-            newClasses.classTitle = lesson.classId
-            updateObjInList(state.lessonsList, { id: lesson.id, subjectId: lesson.subId, classId: lesson.clsId })
+            updateObjInList(state.lessonsList, lesson)
         },
     },
     actions: {
         addLesson({ commit }, lesson) {
-            commit('addLesson', lesson)
+            addToList(subjects, { id: Date.now(), subject: lesson.subjectId })
+            addToList(classesList, { id: Date.now(), classTitle: lesson.classId })
+            commit('addLesson', {
+                id: Date.now(),
+                subjectId: subjects.find((sub) => sub.subject === lesson.subjectId).id,
+                classId: classesList.find((cls) => cls.classTitle === lesson.classId).id,
+            })
         },
         removeLesson({ commit, dispatch }, lessonId) {
             commit('removeLesson', lessonId)
             dispatch('asignments/deleteAsignmentbyLessonId', lessonId, { root: true })
         },
         updateLesson({ commit }, lesson) {
-            commit('updateLesson', lesson)
+            const newSubjects = subjects.find((obj) => obj.id === lesson.subId)
+            newSubjects.subject = lesson.subjectId
+            const newClasses = classesList.find((obj) => obj.id === lesson.clsId)
+            newClasses.classTitle = lesson.classId
+            commit('updateLesson', { id: lesson.id, subjectId: lesson.subId, classId: lesson.clsId })
         },
     },
     modules: {},

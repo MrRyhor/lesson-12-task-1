@@ -62,5 +62,16 @@ export default {
     & .add-button {
         margin-top: 20px;
     }
+    & .btns-container {
+        
+        & > button {
+            cursor: pointer;
+        }
+
+        & > button:hover {
+            background-color: rgb(54, 54, 54);
+            color: #fff;
+        }
+    }
 }
 </style>
